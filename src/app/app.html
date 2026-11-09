@@ -95,8 +95,8 @@
             #bubbleArea
             class="bubble-area"
             [class.is-active]="showBubbles"
-            (mousemove)="onBubbleMouseMove($event)"
-            (mouseleave)="onBubbleMouseLeave()"
+            (pointermove)="onBubbleMouseMove($event)"
+            (pointerleave)="onBubbleMouseLeave()"
           >
             @for (bubble of skillBubbles; track bubble.name; let i = $index) {
               <div
@@ -457,7 +457,7 @@
   </h2>
 
   <p class="guard-text">
-    Amplía la ventana, o ábrela desde un ordenador,
+    Gira el dispositivo en vertical, o amplía la ventana,
     para verla como fue pensada.
   </p>
 

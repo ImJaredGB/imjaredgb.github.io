@@ -47,6 +47,7 @@ html {
 
   width: 100%;
   height: 100vh;
+  height: 100dvh;
   overflow-y: auto;
   scroll-snap-type: y mandatory;
 
@@ -70,6 +71,7 @@ html {
 .page-container > section {
   width: 100%;
   min-height: 100vh;
+  min-height: 100dvh;
   scroll-snap-align: start;
   scroll-snap-stop: always;
   box-sizing: border-box;
@@ -81,7 +83,6 @@ html {
   display: grid;
   grid-template-columns: 2fr 1.2fr;
   width: 100%;
-  min-height: 100vh;
   font-family: 'Nohemi-Medium', sans-serif;
 }
 
@@ -90,7 +91,6 @@ html {
 .intro {
   display: flex;
   box-sizing: border-box;
-  min-height: 100vh;
   padding: 128px 60px 52px;
 }
 
@@ -111,7 +111,7 @@ html {
 .introduction h1 {
   margin: 32px 0 0;
   font-family: 'Nohemi-Medium', sans-serif;
-  font-size: 110px;
+  font-size: clamp(56px, 7vw, 110px);
   font-weight: 500;
   line-height: 1;
 }
@@ -120,7 +120,7 @@ html {
   display: block;
   margin-top: auto;
   font-family: 'Nohemi-Light', sans-serif;
-  font-size: 40px;
+  font-size: clamp(22px, 3vw, 40px);
   font-weight: 300;
   white-space: pre;
 }
@@ -265,7 +265,7 @@ html {
     align-items: center;
 
     font-family: 'Nohemi-Medium', sans-serif;
-    font-size: 100px;
+    font-size: min(100px, 6.6vw);
     color: #FFFFFF;
     white-space: nowrap;
 
@@ -352,7 +352,6 @@ html {
   align-items: center;
 
   width: 100%;
-  min-height: 100vh;
   box-sizing: border-box;
 
   padding: 100px 8%;
@@ -764,42 +763,6 @@ html {
     }
 }
 
-/* RESPONSIVE */
-
-@media (max-width: 900px) {
-    .about {
-        min-height: 100vh;
-        height: 100vh;
-        overflow: hidden;
-    }
-
-    .about-intro h2 {
-        font-size: 70px;
-    }
-
-    .about-description {
-        font-size: 22px;
-    }
-}
-
-@media (max-width: 500px) {
-    .about-intro h2 {
-        font-size: 55px;
-    }
-
-    .about-description {
-        font-size: 19px;
-    }
-
-    .skills-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .skill {
-        font-size: 17px;
-    }
-}
-
 /* SECTION 03: PROJECTS */
 
 $accent-from: hsl(263, 68%, 60%);
@@ -816,7 +779,8 @@ $folder-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' 
     grid-template-rows: auto minmax(0, 1fr);
     column-gap: 48px;
 
-    height: 100vh;
+    height: max(100vh, 700px);
+    height: max(100dvh, 700px);
     box-sizing: border-box;
     padding: 60px 120px;
 
@@ -849,7 +813,7 @@ $folder-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' 
 .file-explorer {
     display: flex;
     flex-direction: column;
-    gap: 56px; // separación entre bloques (antes 30px)
+    gap: clamp(24px, 4vh, 56px);
 
     min-height: 0;
     padding-right: 8px;
@@ -862,8 +826,7 @@ $folder-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' 
 }
 
 .explorer-title {
-    margin: 0 0 20px; // más aire entre el título del bloque y sus proyectos
-
+    margin: 0 0 clamp(10px, 2vh, 20px);
     font-family: 'Nohemi-Light', sans-serif;
     font-size: 13px;
     font-weight: 300;
@@ -876,22 +839,19 @@ $folder-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' 
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 14px; // separación entre proyectos (antes 6px)
+    gap: clamp(2px, 0.8vh, 14px);
 }
 
 .file {
     position: relative;
-
-    padding: 8px 0;
+    padding: clamp(4px, 0.8vh, 8px) 0;
     border: none;
     background: transparent;
     color: #8c8c8c;
-
     font-family: 'Nohemi-Medium', sans-serif;
     font-size: 18px;
     text-align: left;
     cursor: pointer;
-
     transition: color 300ms ease;
 
     /* Subrayado */
@@ -1079,62 +1039,12 @@ $folder-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' 
     }
 }
 
-/* RESPONSIVE */
-
-@media (max-width: 900px) {
-    .projects {
-        grid-template-columns: 1fr;
-        grid-template-rows: auto auto 70vh;
-        row-gap: 24px;
-
-        height: auto;
-        min-height: 100vh;
-        padding: 48px 24px;
-    }
-
-    .projects-header {
-        margin-bottom: 0;
-
-        p {
-            font-size: 20px;
-        }
-    }
-
-    .file-explorer {
-        flex-direction: row;
-        gap: 40px;
-        overflow-x: auto;
-        overflow-y: hidden;
-    }
-
-    .explorer-group {
-        flex-shrink: 0;
-    }
-
-    .explorer-files {
-        flex-direction: row;
-        gap: 24px;
-    }
-
-    .file {
-        white-space: nowrap;
-    }
-
-    .documents article {
-        padding: 32px 24px;
-
-        p {
-            font-size: 18px;
-        }
-    }
-
-}
-
 /* SECTION 04: CONTACT */
 
 // Media página, y el snap se alinea al final para poder llegar hasta abajo
 .page-container > .contact {
     min-height: 50vh;
+    min-height: 50dvh;
     scroll-snap-align: end;
 }
 
@@ -1288,31 +1198,11 @@ $folder-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' 
     }
 }
 
-@media (max-width: 900px) {
-    .contact {
-        grid-template-columns: 1fr;
-        row-gap: 56px;
-        padding: 56px 24px 110px;
-    }
-
-    .contact-message {
-        font-size: 20px;
-    }
-
-    .contact-link {
-        font-size: 20px;
-    }
-
-    .back-to-top {
-        right: 24px;
-    }
-}
-
 /* AVISO: PANTALLA DEMASIADO PEQUEÑA */
 
 // Tamaño mínimo para mostrar la página (por debajo sale el aviso)
-$min-width: 1280px;
-$min-height: 640px;
+$guard-min-width: 360px;             // más estrecho que esto: no cabe
+$guard-min-landscape-height: 520px;  // en horizontal, más bajo que esto: iPhone girado
 
 .screen-guard {
   display: none;
@@ -1428,9 +1318,9 @@ $min-height: 640px;
   }
 }
 
-/* Cuándo se muestra */
+/* AVISO: PANTALLA DEMASIADO PEQUEÑA */
 
-@media (max-width: #{$min-width - 1px}), (max-height: #{$min-height - 1px}) {
+@media (max-width: #{$guard-min-width - 1px}),(orientation: landscape) and (max-height: #{$guard-min-landscape-height - 1px}) {
   .screen-guard {
     display: flex;
     animation: guard-in 500ms cubic-bezier(0.22, 1, 0.36, 1) both;
@@ -1455,4 +1345,160 @@ $min-height: 640px;
     &:nth-child(2) { transform: scale(0.66); }
     &:nth-child(3) { transform: scale(0.33); }
   }
+}
+
+/* RESPONSIVE */
+
+/* ≤ 1279px · iPad horizontal (1080–1194) y ventanas pequeñas de laptop */
+@media (max-width: 1279px) {
+
+  /* Home */
+  .intro { padding: 112px 40px 44px; }
+  .role { white-space: normal; }
+  .technologies { padding-left: 28px; gap: 24px; }
+
+  /* Sobre mí */
+  .about { padding: 80px 6%; gap: 56px; }
+  .about-intro h2 { margin: 20px 0 32px; font-size: clamp(56px, 6.6vw, 90px); }
+  .about-description { font-size: clamp(24px, 2.5vw, 35px); }
+  .about-description.secondary { font-size: 18px; }
+
+  /* Proyectos */
+  .projects {
+    grid-template-columns: 220px minmax(0, 1fr);
+    grid-template-rows: auto minmax(500px, 1fr);
+    column-gap: 32px;
+    height: auto;           // crece si el contenido lo pide
+    padding: 44px 48px;
+  }
+
+  .projects-header { margin-bottom: 24px; }
+  .projects-header p { font-size: 20px; }
+  .file { font-size: 17px; }
+
+  .documents article { padding: 36px 40px; }
+  .documents article h2 { margin-bottom: 22px; }
+  .documents article p { margin-bottom: 26px; font-size: 17px; }
+
+  /* Contacto */
+  .contact { column-gap: 56px; }
+}
+
+/* ≤ 1023px · iPad vertical (810–834), y iPad grande en vertical */
+@media (max-width: 1023px), (max-width: 1100px) and (orientation: portrait) {
+
+  // Con secciones más altas que la pantalla, el snap obligatorio atasca en iOS
+  .page-container { scroll-snap-type: y proximity; }
+  .page-container > section { scroll-snap-stop: normal; }
+
+  /* Home: portada arriba, tecnologías debajo */
+  .home { grid-template-columns: 1fr; grid-template-rows: auto 1fr; }
+
+  .intro {
+    min-height: 40vh;
+    min-height: 40dvh;
+    padding: 96px 40px 40px;
+  }
+
+  .technologies { min-height: 420px; padding: 56px 0 56px 40px; gap: 28px; }
+  .technology { font-size: clamp(52px, 12vw, 100px); }
+
+  /* Sobre mí */
+  .about {
+    grid-template-columns: 1fr;
+    align-content: center;
+    gap: 56px;
+    padding: 96px 8%;
+  }
+
+  .about-intro h2 { font-size: clamp(56px, 9vw, 80px); }
+  .about-description { max-width: 600px; font-size: clamp(24px, 3.6vw, 30px); }
+  .skills-visualization { height: 420px; }
+
+  /* Proyectos: explorador arriba (3 columnas) y carpeta debajo */
+  .projects {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto minmax(560px, 1fr);
+    row-gap: 32px;
+    padding: 56px 40px;
+  }
+
+  .projects-header { margin-bottom: 0; }
+
+  .file-explorer {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 24px 48px;
+    overflow: visible;
+  }
+
+  .explorer-group { flex-shrink: 0; }
+  .explorer-title { margin-bottom: 12px; }
+  .explorer-files { gap: 4px; }
+  .file { padding: 6px 0; }
+
+  .documents { scroll-snap-type: y proximity; }
+
+  /* Contacto */
+  .contact { grid-template-columns: 1fr; row-gap: 56px; padding: 64px 8% 120px; }
+  .contact-message { font-size: 22px; }
+}
+
+/* ≤ 699px · iPhone vertical (375–430) */
+@media (max-width: 699px) {
+
+  /* Home */
+  .intro {
+    min-height: 36vh;
+    min-height: 36dvh;
+    padding: 88px 24px 32px;
+  }
+
+  .greeting { font-size: 16px; }
+  .introduction h1 { margin-top: 20px; }
+  .role { font-size: 20px; }
+
+  .technologies { min-height: 340px; padding: 40px 0 40px 24px; gap: 14px; }
+  .technology { font-size: clamp(44px, 13vw, 64px); }
+
+  /* Sobre mí */
+  .about { padding: 80px 24px; gap: 40px; }
+  .about-intro h2 { margin: 16px 0 28px; font-size: 52px; }
+  .about-description { font-size: 22px; }
+  .about-description.secondary { font-size: 17px; }
+
+  .skills-visualization { height: 440px; }
+  .skills-grid { column-gap: 20px; }
+  .skill { padding: 12px 0; font-size: 15px; }
+
+  /* Proyectos: grupos apilados, y los proyectos de cada grupo en fila */
+  .projects {
+    grid-template-rows: auto auto minmax(560px, 72vh);
+    grid-template-rows: auto auto minmax(560px, 72dvh);
+    row-gap: 28px;
+    padding: 48px 24px;
+  }
+
+  .projects-header p { font-size: 18px; }
+
+  .file-explorer { flex-direction: column; gap: 22px; }
+  .explorer-title { margin-bottom: 6px; }
+  .explorer-files { flex-direction: row; flex-wrap: wrap; gap: 0 22px; }
+  .file { font-size: 16px; }
+
+  .folder-tab { font-size: 14px; }
+
+  .documents article { padding: 28px 22px; }
+  .documents article h2 { margin-bottom: 20px; font-size: 34px; }
+  .documents article p { margin-bottom: 24px; font-size: 16px; }
+  .documents article ul { margin-left: -12px; }
+  .documents article li { padding: 6px 12px; font-size: 13px; }
+
+  /* Contacto */
+  .contact { row-gap: 44px; padding: 56px 24px 112px; }
+  .contact-intro h2 { font-size: clamp(38px, 11vw, 52px); }
+  .contact-message,
+  .contact-link { font-size: 19px; }
+
+  .back-to-top { right: 24px; bottom: 32px; width: 48px; height: 48px; }
 }

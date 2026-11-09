@@ -8,9 +8,9 @@ import {
 } from '@angular/core';
 
 // Tamaño mínimo para ver la página.
-// Debe coincidir con $min-width y $min-height de app.scss
-const MIN_WIDTH = 1280;
-const MIN_HEIGHT = 640;
+// Deben coincidir con las condiciones del aviso en app.scss
+const GUARD_MIN_WIDTH = 360;
+const GUARD_MIN_LANDSCAPE_HEIGHT = 520;
 
 // Tiempos en ms. OPEN_DURATION debe coincidir con $open-duration de preloader.scss
 const TICK = 60;
@@ -46,23 +46,30 @@ export class Preloader implements OnInit, OnDestroy {
   private ticker?: ReturnType<typeof setInterval>;
 
   // ¿La pantalla es lo bastante grande para mostrar la experiencia?
-  private readonly screenQuery = window.matchMedia(
-    `(min-width: ${MIN_WIDTH}px) and (min-height: ${MIN_HEIGHT}px)`
+  private readonly tooNarrow = window.matchMedia(
+    `(max-width: ${GUARD_MIN_WIDTH - 1}px)`
   );
 
-  private canRun = this.screenQuery.matches;
+  private readonly shortLandscape = window.matchMedia(
+    `(orientation: landscape) and (max-height: ${GUARD_MIN_LANDSCAPE_HEIGHT - 1}px)`
+  );
 
-  private onScreenChange = (event: MediaQueryListEvent): void => {
-    this.canRun = event.matches;
+  private canRun = this.isScreenOk();
+
+  private isScreenOk(): boolean {
+    return !this.tooNarrow.matches && !this.shortLandscape.matches;
+  }
+
+  private onScreenChange = (): void => {
+    this.canRun = this.isScreenOk();
   };
 
   constructor(private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
-    this.screenQuery.addEventListener('change', this.onScreenChange);
-
-    // Un único reloj lleva toda la secuencia. Si la pantalla es pequeña,
-    // no avanza nada hasta que vuelva a ser grande.
+    this.tooNarrow.addEventListener('change', this.onScreenChange);
+    this.shortLandscape.addEventListener('change', this.onScreenChange);
+    // Un único reloj lleva toda la secuencia. Si la pantalla es pequeña, no avanza nada hasta que vuelva a ser grande.
     this.ticker = setInterval(() => this.tick(), TICK);
   }
 
@@ -131,6 +138,7 @@ export class Preloader implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     clearInterval(this.ticker);
-    this.screenQuery.removeEventListener('change', this.onScreenChange);
+    this.tooNarrow.removeEventListener('change', this.onScreenChange);
+    this.shortLandscape.removeEventListener('change', this.onScreenChange);
   }
 }
